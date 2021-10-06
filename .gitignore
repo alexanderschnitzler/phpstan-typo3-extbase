@@ -1,0 +1,7 @@
+/bin
+/public
+/vendor
+
+/.phpunit.result.cache
+/composer.lock
+/phpstan.neon

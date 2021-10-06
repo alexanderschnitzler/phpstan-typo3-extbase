@@ -1,0 +1,42 @@
+{
+    "name": "schnitzler/phpstan-typo3-extbase",
+    "type": "phpstan-extension",
+    "description": "A PHPStan package that supports working with Extbase",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alexander Schnitzler",
+            "email": "git@alexanderschnitzler.de"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "phpstan/phpstan": "^0.12.87",
+        "typo3/cms-extbase": "^10.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "config": {
+        "platform": {
+            "php": "7.4.99"
+        },
+        "sort-packages": true,
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Schnitzler\\PHPStan\\TYPO3\\Extbase\\": "src/"
+        },
+        "classmap": [
+            "stubs/"
+        ]
+    }
+}

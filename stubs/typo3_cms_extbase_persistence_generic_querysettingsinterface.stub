@@ -1,0 +1,39 @@
+<?php
+
+namespace TYPO3\CMS\Extbase\Persistence\Generic;
+
+interface QuerySettingsInterface
+{
+    /**
+     * @phpstan-param int[] $storagePageIds
+     * @phpstan-return static
+     */
+    public function setStoragePageIds($storagePageIds);
+
+    /**
+     * @phpstan-return int[]
+     */
+    public function getStoragePageIds();
+
+    /**
+     * @phpstan-param bool|string $languageOverlayMode
+     * @phpstan-return static
+     */
+    public function setLanguageOverlayMode($languageOverlayMode = false);
+
+    /**
+     * @phpstan-return bool|string
+     */
+    public function getLanguageOverlayMode();
+
+    /**
+     * @phpstan-param string[] $enableFieldsToBeIgnored
+     * @phpstan-return static
+     */
+    public function setEnableFieldsToBeIgnored($enableFieldsToBeIgnored);
+
+    /**
+     * @phpstan-return string[]
+     */
+    public function getEnableFieldsToBeIgnored();
+}

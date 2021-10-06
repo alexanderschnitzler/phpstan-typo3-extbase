@@ -1,0 +1,27 @@
+<?php
+
+namespace TYPO3\CMS\Extbase\Persistence;
+
+/**
+ * @template TEntityClass of object
+ * @extends \Iterator<int, TEntityClass>
+ * @extends \ArrayAccess<int, TEntityClass>
+ */
+interface QueryResultInterface extends \Countable, \Iterator, \ArrayAccess
+{
+    /**
+     * @phpstan-return \TYPO3\CMS\Extbase\Persistence\QueryInterface<TEntityClass>
+     */
+    public function getQuery();
+
+    /**
+     * @phpstan-return TEntityClass|null
+     */
+    public function getFirst();
+
+    /**
+     * @phpstan-return array<int,TEntityClass>
+     */
+    public function toArray();
+}
+

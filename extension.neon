@@ -1,0 +1,16 @@
+parameters:
+	stubFiles:
+		- stubs/typo3_cms_extbase_persistence_generic_qom_andtinterface.stub
+		- stubs/typo3_cms_extbase_persistence_generic_qom_comparisontinterface.stub
+		- stubs/typo3_cms_extbase_persistence_generic_qom_constraintinterface.stub
+		- stubs/typo3_cms_extbase_persistence_generic_qom_ortinterface.stub
+		- stubs/typo3_cms_extbase_persistence_generic_querysettingsinterface.stub
+		- stubs/typo3_cms_extbase_persistence_queryinterface.stub
+		- stubs/typo3_cms_extbase_persistence_queryresultinterface.stub
+		- stubs/typo3_cms_extbase_persistence_repository.stub
+
+services:
+	-
+		class: Schnitzler\PHPStan\TYPO3\Extbase\Type\QueryResult\ExecuteDynamicReturnTypeExtension
+		tags:
+			- phpstan.broker.dynamicMethodReturnTypeExtension

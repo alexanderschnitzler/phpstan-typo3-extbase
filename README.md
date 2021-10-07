@@ -7,12 +7,12 @@ This package provides a couple of stubs and services to make your life easier wh
 ```php
 class Item extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity {}
 
-class ItemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {}
-
 /**
  * @template TEntityClass of Item
  * @template-extends Repository<TEntityClass>
  */
+class ItemRepository extends \TYPO3\CMS\Extbase\Persistence\Repository {}
+
 class ItemController
 {
     private ItemRepository $itemRepository;

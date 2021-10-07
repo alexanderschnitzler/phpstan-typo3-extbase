@@ -44,7 +44,7 @@ class ItemController
         # PHPStan does now know that execute returns a QueryResult<Item> with the argument set to false.
         $queryResult = $query->execute(false);
 
-        # PHPStan does now know that execute returns an array (Item[]) with the argument set to true.
+        # PHPStan does now know that execute returns an array of arrays (array<int,array<string,mixed>>) with the argument set to true.
         $array = $query->execute(true);
     }
 }

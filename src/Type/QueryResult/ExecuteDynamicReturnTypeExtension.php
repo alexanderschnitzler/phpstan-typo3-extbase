@@ -7,7 +7,6 @@ namespace Schnitzler\PHPStan\TYPO3\Extbase\Type\QueryResult;
 use PhpParser\Node\Arg;
 use PhpParser\Node\Expr\ConstFetch;
 use PhpParser\Node\Expr\MethodCall;
-use PhpParser\Node\Expr\Variable;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\MethodReflection;
 use PHPStan\Type\ArrayType;
@@ -15,14 +14,16 @@ use PHPStan\Type\DynamicMethodReturnTypeExtension;
 use PHPStan\Type\Generic\GenericObjectType;
 use PHPStan\Type\IntegerType;
 use PHPStan\Type\MixedType;
-use TYPO3\CMS\Extbase\Persistence\Generic\Query;
+use PHPStan\Type\ObjectWithoutClassType;
+use PHPStan\Type\StringType;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 class ExecuteDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtension
 {
     public function getClass(): string
     {
-        return Query::class;
+        return QueryInterface::class;
     }
 
     public function isMethodSupported(MethodReflection $methodReflection): bool
@@ -35,21 +36,19 @@ class ExecuteDynamicReturnTypeExtension implements DynamicMethodReturnTypeExtens
         MethodCall $methodCall,
         Scope $scope
     ): \PHPStan\Type\Type {
-        /** @var Variable $callingVariable */
-        $callingVariable = $methodCall->var;
-        $callingVariableName = (string)$callingVariable->name;
+        if ($this->evaluateArgumentValue($methodCall) === true) {
+            return new ArrayType(new IntegerType(), new ArrayType(new StringType(), new MixedType()));
+        }
 
-        $types = [new MixedType()];
-        $variableType = $scope->getVariableType($callingVariableName);
+        $caller = $methodCall->var;
+        $variableType = $scope->getType($caller);
+
+        $types = [new ObjectWithoutClassType()];
         if ($variableType instanceof GenericObjectType && $variableType->getTypes() !== []) {
             $types = $variableType->getTypes();
         }
 
-        if ($this->evaluateArgumentValue($methodCall) === false) {
-            return new GenericObjectType(QueryResultInterface::class, $types);
-        } else {
-            return new ArrayType(new IntegerType(), reset($types));
-        }
+        return new GenericObjectType(QueryResultInterface::class, $types);
     }
 
     private function evaluateArgumentValue(MethodCall $methodCall): bool
